@@ -6,6 +6,3 @@ services:
     container_name: mutech_iot_api
     ports:
       - '8000:80'
-      
-    volumes: 
-      - $PWD/mutech_iot_api:/var/www/html
