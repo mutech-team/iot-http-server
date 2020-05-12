@@ -3,6 +3,7 @@ version: "2"
 services: 
   mutech-iot-api:
     build: .
+    restart: unless-stopped
     container_name: mutech_iot_api
     ports:
       - '8000:80'
