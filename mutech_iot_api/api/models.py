@@ -27,7 +27,7 @@ class Device(models.Model):
 
 class Data(models.Model):
     device = models.ForeignKey("Device", on_delete=models.CASCADE)
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(auto_now_add=True)
     type = models.CharField(max_length=50)
     value = models.FloatField()
 
