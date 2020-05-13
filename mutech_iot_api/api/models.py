@@ -4,7 +4,7 @@ import uuid
 
 
 class User(models.Model):
-    id = models.UUIDField(default=uuid.uuid4, editable=False)
+    api_key = models.UUIDField(default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
     email = models.EmailField()
@@ -15,7 +15,7 @@ class User(models.Model):
 
 
 class Device(models.Model):
-    id = models.UUIDField(default=uuid.uuid4, editable=False)
+    device_id = models.UUIDField(default=uuid.uuid4, editable=False)
     user = models.ForeignKey("User", on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     state = JSONField()
