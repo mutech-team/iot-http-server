@@ -4,6 +4,15 @@ services:
   mutech-iot-api:
     build: .
     restart: unless-stopped
-    container_name: mutech_iot_api
+    environment: 
+      - dbaddr=$dbaddr
+      - dbport=$dbport
+      - dbuser=$dbuser
+      - dbpass=$dbpass
+      - dbname=$dbname
+      - secretkey=$secretkey
+      - debug=$debug
+      
+    container_name: "api"
     ports:
       - '8000:80'
