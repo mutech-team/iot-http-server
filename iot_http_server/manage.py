@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mutech_iot_api.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'iot_http_server.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

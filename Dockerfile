@@ -13,6 +13,6 @@ COPY Pipfile.lock .
 COPY Pipfile .
 RUN pipenv install --system --deploy --ignore-pipfile
 ADD ./apache2.conf /etc/apache2/sites-available/000-default.conf
-COPY ./mutech_iot_api /var/www/html
+COPY ./iot_http_server /var/www/html
 EXPOSE 80
 CMD ["apache2ctl", "-D", "FOREGROUND"]
