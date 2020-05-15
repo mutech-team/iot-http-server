@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from mqtt_auth.selectors import auth_user, auth_superuser, auth_topic
+from mqtt_auth.services import setup_test_data, teardown_test_data
 
 
 def user(request: HttpRequest) -> HttpResponse:
@@ -25,3 +26,15 @@ def topic(request: HttpRequest) -> HttpResponse:
             return HttpResponse(status=200)
         else:
             return HttpResponse(status=403)
+
+
+def test_setup(request: HttpRequest) -> HttpResponse:
+    if request.method == 'GET':
+        setup_test_data()
+        return HttpResponse(status=200)
+
+
+def test_teardown(request: HttpRequest) -> HttpResponse:
+    if request.method == 'GET':
+        teardown_test_data()
+        return HttpResponse(status=200)

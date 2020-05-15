@@ -6,6 +6,7 @@ import uuid
 class User(AbstractUser):
     mqtt_username = models.UUIDField(default=uuid.uuid4)
     mqtt_password = models.UUIDField(default=uuid.uuid4)
+    is_mqtt_superuser = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'Users'

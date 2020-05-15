@@ -37,10 +37,10 @@ if (getEnvVar('secretkey') != ""):
     SECRET_KEY = os.environ['secretkey']
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
 if (getEnvVar('debug') != ""):
     DEBUG = False
-else:
-    DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -85,36 +85,23 @@ WSGI_APPLICATION = 'iot_http_server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'api',
+        'USER': 'apiman',
+        'PASSWORD': 'apiman',
+        'HOST': 'mutech.ivica.codes',
+        'PORT': 5432,
+    }
+}
+
 if getEnvVar("dbaddr") != "":
-
-    dbname = getEnvVar("dbname")
-    dbuser = getEnvVar("dbuser")
-    dbpass = getEnvVar("dbpass")
-    dbhost = getEnvVar("dbaddr")
-    dbport = int(getEnvVar("dbport"))
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': dbname,
-            'USER': dbuser,
-            'PASSWORD': dbpass,
-            'HOST': dbhost,
-            'PORT': dbport,
-        }
-    }
-
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'api',
-            'USER': 'apiman',
-            'PASSWORD': 'apiman',
-            'HOST': 'mutech.ivica.codes',
-            'PORT': '5432',
-        }
-    }
+    DATABASES['default']['NAME'] = getEnvVar("dbname")
+    DATABASES['default']['USER'] = getEnvVar("dbuser")
+    DATABASES['default']['PASSWORD'] = getEnvVar("dbpass")
+    DATABASES['default']['HOST'] = getEnvVar("dbaddr")
+    DATABASES['default']['PORT'] = int(getEnvVar("dbport"))
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

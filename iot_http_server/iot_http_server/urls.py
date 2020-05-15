@@ -14,12 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from mqtt_auth import views
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('mqtt_auth/user', views.user),
-    path('mqtt_auth/superuser', views.superuser),
-    path('mqtt_auth/topic', views.topic),
+    path('mqtt_auth/', include('mqtt_auth.urls')),
 ]
