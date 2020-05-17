@@ -13,6 +13,6 @@ services:
       - secretkey=$secretkey
       - debug=$debug
       
-    container_name: "mutech-iot-http-server"
+    container_name: "iot-http-server"
     ports:
       - '8000:80'
