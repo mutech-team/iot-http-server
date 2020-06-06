@@ -21,26 +21,26 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 
 
-def getEnvVar(varName):
+def getEnvVar(varName: str) -> str:
     try:
         if (os.environ[varName]):
             return str(os.environ[varName])
         else:
-            return False
+            return ""
     except:
-        return False
+        return ""
 
 
-if (getEnvVar('secretkey')):
+SECRET_KEY = 'j0mnl0n!+#ose_+5ofi)k7493sh&o1v(k5r8@bd$xp$l(mf1f='
+
+if (getEnvVar('secretkey') != ""):
     SECRET_KEY = os.environ['secretkey']
-else:
-    SECRET_KEY = 'j0mnl0n!+#ose_+5ofi)k7493sh&o1v(k5r8@bd$xp$l(mf1f='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if (getEnvVar('debug')):
+DEBUG = True
+
+if (getEnvVar('debug') != ""):
     DEBUG = False
-else:
-    DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -50,13 +50,13 @@ INSTALLED_APPS = [
     'django.contrib.admin', 'django.contrib.auth',
     'django.contrib.contenttypes', 'django.contrib.sessions',
     'django.contrib.messages', 'django.contrib.staticfiles',
+    'mqtt_auth'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -85,36 +85,23 @@ WSGI_APPLICATION = 'iot_http_server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if getEnvVar("dbaddr"):
-
-    dbname = getEnvVar("dbname")
-    dbuser = getEnvVar("dbuser")
-    dbpass = getEnvVar("dbpass")
-    dbhost = getEnvVar("dbaddr")
-    dbport = int(getEnvVar("dbport"))
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': dbname,
-            'USER': dbuser,
-            'PASSWORD': dbpass,
-            'HOST': dbhost,
-            'PORT': dbport,
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'api',
+        'USER': 'apiman',
+        'PASSWORD': 'apiman',
+        'HOST': 'mutech.ivica.codes',
+        'PORT': 5432,
     }
+}
 
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'api',
-            'USER': 'apiman',
-            'PASSWORD': 'apiman',
-            'HOST': 'mutech.ivica.codes',
-            'PORT': '5432',
-        }
-    }
+if getEnvVar("dbaddr") != "":
+    DATABASES['default']['NAME'] = getEnvVar("dbname")
+    DATABASES['default']['USER'] = getEnvVar("dbuser")
+    DATABASES['default']['PASSWORD'] = getEnvVar("dbpass")
+    DATABASES['default']['HOST'] = getEnvVar("dbaddr")
+    DATABASES['default']['PORT'] = int(getEnvVar("dbport"))
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -158,8 +145,4 @@ STATIC_URL = '/static/'
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS':
-    'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
-}
+AUTH_USER_MODEL = 'mqtt_auth.User'

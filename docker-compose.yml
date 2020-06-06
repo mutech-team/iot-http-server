@@ -1,7 +1,7 @@
 version: "2"
 
 services: 
-  iot_http_server:
+  mutech-iot-http-server:
     build: .
     restart: unless-stopped
     environment: 
@@ -13,6 +13,6 @@ services:
       - secretkey=$secretkey
       - debug=$debug
       
-    container_name: "iot_http_server"
+    container_name: "iot-http-server"
     ports:
       - '8000:80'
