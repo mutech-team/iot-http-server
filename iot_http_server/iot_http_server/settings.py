@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.admin', 'django.contrib.auth',
     'django.contrib.contenttypes', 'django.contrib.sessions',
     'django.contrib.messages', 'django.contrib.staticfiles',
-    'mqtt_auth'
+    'mqtt_auth',
+    'state_publisher'
 ]
 
 MIDDLEWARE = [
