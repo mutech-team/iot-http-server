@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0fe6edab-d123-46db-8dd2-09408891b0d3",
+		"_postman_id": "f864de93-e6c2-4137-b31e-9cba7eb7009c",
 		"name": "MQTT Auth Testing",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "93bc253d-69e8-416c-a70f-baa3017150ef",
+								"id": "a7ccf467-5be6-436e-a563-2ad56671c7a1",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -52,7 +52,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4ea94ac7-2372-4663-bd54-34664bdabd66",
+								"id": "8bf96a3f-386f-4eb4-99aa-5a1aad8b9daf",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -97,7 +97,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "972255af-c91e-462f-bc08-bd401fc268c4",
+								"id": "bcbc65da-03d9-4cdc-af60-fea2da227bca",
 								"exec": [
 									"pm.test(\"Status code is 403\", function () {",
 									"    pm.response.to.have.status(403);",
@@ -142,7 +142,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ebf68757-eac3-4fba-a912-45cb394134d4",
+								"id": "e32b37cf-bd7e-42b3-ae44-7e421294bccb",
 								"exec": [
 									"pm.test(\"Status code is 403\", function () {",
 									"    pm.response.to.have.status(403);",
@@ -193,7 +193,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "92b3ad0d-8b12-43ee-bb31-9a78d6781f25",
+								"id": "d67e9036-3d97-425c-893c-c2cc5f5e0716",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -238,7 +238,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f863fce4-733f-47f7-a915-c82461e81804",
+								"id": "220e0834-503a-40a7-8e90-b73b41b5e723",
 								"exec": [
 									"pm.test(\"Status code is 403\", function () {",
 									"    pm.response.to.have.status(403);",
@@ -283,7 +283,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8ac28d2c-eec3-4be6-9230-4704c537cda3",
+								"id": "05d6c67f-5ee7-40e0-87d1-4faac6f87995",
 								"exec": [
 									"pm.test(\"Status code is 403\", function () {",
 									"    pm.response.to.have.status(403);",
@@ -329,12 +329,12 @@
 			"name": "04. Topic Auth",
 			"item": [
 				{
-					"name": "Valid Topic",
+					"name": "Valid Topic - publish",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "44bcf104-a78b-4db3-8962-d9a888fc2e22",
+								"id": "92b3f6af-34ff-4aad-8fdb-715c731c3ecf",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -353,7 +353,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"clientid\": \"d5e0531c-3dfb-4574-a1e8-7c83e783f7ec\",\n\t\"topic\": \"/ingest/d5e0531c-3dfb-4574-a1e8-7c83e783f7ec/lamp\",\n\t\"username\": \"49992d21-6cd2-4441-a94f-48df57215957\"\n}",
+							"raw": "{\n\t\"clientid\": \"d5e0531c-3dfb-4574-a1e8-7c83e783f7ec\",\n\t\"topic\": \"/ingest/d5e0531c-3dfb-4574-a1e8-7c83e783f7ec/lamp\",\n\t\"username\": \"49992d21-6cd2-4441-a94f-48df57215957\",\n\t\"acc\" : \"2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -374,12 +374,57 @@
 					"response": []
 				},
 				{
-					"name": "Unauthorised Topic",
+					"name": "Valid Topic - subscribe",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "8ef9b68c-049e-4d18-9d69-39450f883a5c",
+								"id": "0877bbd8-7abb-4bb2-8f42-4427364e7d9b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"clientid\": \"d5e0531c-3dfb-4574-a1e8-7c83e783f7ec\",\n\t\"topic\": \"/d5e0531c-3dfb-4574-a1e8-7c83e783f7ec/lamp\",\n\t\"username\": \"49992d21-6cd2-4441-a94f-48df57215957\",\n\t\"acc\": \"4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/mqtt_auth/topic",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"mqtt_auth",
+								"topic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publishing on subscribe only topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "82cc575e-a5d8-465d-8fd2-4a2ef7461d05",
 								"exec": [
 									"pm.test(\"Status code is 403\", function () {",
 									"    pm.response.to.have.status(403);",
@@ -398,7 +443,104 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"clientid\": \"d5e0531c-3dfb-4574-a1e8-7c83e783f7ec\",\n\t\"topic\": \"/ingest/e67f744a-5d9b-4dbf-ae49-a7cf0d5f9815/lamp\",\n\t\"username\": \"49992d21-6cd2-4441-a94f-48df57215957\"\n}",
+							"raw": "{\n\t\"clientid\": \"d5e0531c-3dfb-4574-a1e8-7c83e783f7ec\",\n\t\"topic\": \"/d5e0531c-3dfb-4574-a1e8-7c83e783f7ec/lamp\",\n\t\"username\": \"49992d21-6cd2-4441-a94f-48df57215957\" ,\n\t\"acc\" : \"2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/mqtt_auth/topic",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"mqtt_auth",
+								"topic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Subscribing to publish only topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c8bc1903-b801-4fb0-bba7-cea7cdae65b8",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"clientid\": \"d5e0531c-3dfb-4574-a1e8-7c83e783f7ec\",\n\t\"topic\": \"/ingest/d5e0531c-3dfb-4574-a1e8-7c83e783f7ec/lamp\",\n\t\"username\": \"49992d21-6cd2-4441-a94f-48df57215957\",\n\t\"acc\" : \"4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/mqtt_auth/topic",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"mqtt_auth",
+								"topic"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unauthorised Topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5389a9cd-bcc1-4b9e-a8d9-fe2f078c90ed",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"clientid\": \"d5e0531c-3dfb-4574-a1e8-7c83e783f7ec\",\n\t\"topic\": \"/ingest/e67f744a-5d9b-4dbf-ae49-a7cf0d5f9815/lamp\",\n\t\"username\": \"49992d21-6cd2-4441-a94f-48df57215957\",\n\t\"acc\" : \"2\"\n\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -424,7 +566,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1ebb4d8e-e6b5-4286-8acd-6b51a6339bb8",
+								"id": "1fdca5fe-16a2-41fc-a496-f95a73827f33",
 								"exec": [
 									"pm.test(\"Status code is 403\", function () {",
 									"    pm.response.to.have.status(403);",
@@ -443,7 +585,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"clientid\": \"e67f744a-5d9b-4dbf-ae49-a7cf0d5f9815\",\n\t\"topic\": \"/ingest/e67f744a-5d9b-4dbf-ae49-a7cf0d5f9815/lamp\",\n\t\"username\": \"49992d21-6cd2-4441-a94f-48df57215957\"\n}",
+							"raw": "{\n\t\"clientid\": \"e67f744a-5d9b-4dbf-ae49-a7cf0d5f9815\",\n\t\"topic\": \"/ingest/e67f744a-5d9b-4dbf-ae49-a7cf0d5f9815/lamp\",\n\t\"username\": \"49992d21-6cd2-4441-a94f-48df57215957\",\n\t\"acc\" : \"2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -475,7 +617,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "93bc253d-69e8-416c-a70f-baa3017150ef",
+								"id": "c824ff3a-1c5a-4f15-a439-26c9227d6af5",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",

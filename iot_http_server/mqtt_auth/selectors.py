@@ -32,12 +32,33 @@ def auth_topic(body: str) -> bool:
     username: str = body_json["username"]
     client_id: str = body_json["clientid"]
     topic: str = body_json["topic"]
+    acc: int = int(body_json["acc"])
     try:
-        Device.objects.get(mqtt_client_id=client_id,
-                           user=MQTTUser.objects.get(mqtt_username=username))
-        if topic.split("/")[2] != client_id:
-            return False
+        if acc == 2:
+            """
+            Client is wanting to publish to the mqtt server.
+            The topic format must be /ingest/clientid/channel.
+            In addition to that, the clientid must match the username.
+            If it is not, return false.
+            """
+            if topic.split("/")[1] != "ingest":
+                return False
+            if topic.split("/")[2] != client_id:
+                return False
+            Device.objects.get(mqtt_client_id=client_id, user=MQTTUser.objects.get(mqtt_username=username).user)
+        elif acc == 4:
+            """
+            Client is wanting to subscribe to a topic and receive
+            the data from the mqtt server.
+            The topic format must be /clientid/channel.
+            In addition to that, the clientid must match the username.
+            If it is not, return false. 
+            """
+            if topic.split("/")[1] != client_id:
+                return False
+            Device.objects.get(mqtt_client_id=client_id, user=MQTTUser.objects.get(mqtt_username=username).user)
         else:
-            return True
+            return False
+        return True
     except Exception as e:
         return False
