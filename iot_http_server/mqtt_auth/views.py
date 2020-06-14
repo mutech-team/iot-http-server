@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from mqtt_auth.selectors import auth_user, auth_superuser, auth_topic
 from mqtt_auth.services import setup_test_data, teardown_test_data
