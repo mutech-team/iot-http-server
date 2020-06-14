@@ -20,27 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
+SECRET_KEY = os.environ["secretkey"]
 
-def getEnvVar(varName: str) -> str:
-    try:
-        if (os.environ[varName]):
-            return str(os.environ[varName])
-        else:
-            return ""
-    except:
-        return ""
-
-
-SECRET_KEY = 'j0mnl0n!+#ose_+5ofi)k7493sh&o1v(k5r8@bd$xp$l(mf1f='
-
-if (getEnvVar('secretkey') != ""):
-    SECRET_KEY = os.environ['secretkey']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-if (getEnvVar('debug') != ""):
-    DEBUG = False
+DEBUG = bool(os.environ["debug"])
 
 ALLOWED_HOSTS = ['*']
 
@@ -90,20 +74,13 @@ WSGI_APPLICATION = 'iot_http_server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'api',
-        'USER': 'apiman',
-        'PASSWORD': 'apiman',
-        'HOST': 'mutech.ivica.codes',
-        'PORT': 5432,
+        'NAME': os.environ["dbname"],
+        'USER': os.environ["dbuser"],
+        'PASSWORD': os.environ["dbpass"],
+        'HOST': os.environ["dbaddr"],
+        'PORT': int(os.environ["dbport"]),
     }
 }
-
-if getEnvVar("dbaddr") != "":
-    DATABASES['default']['NAME'] = getEnvVar("dbname")
-    DATABASES['default']['USER'] = getEnvVar("dbuser")
-    DATABASES['default']['PASSWORD'] = getEnvVar("dbpass")
-    DATABASES['default']['HOST'] = getEnvVar("dbaddr")
-    DATABASES['default']['PORT'] = int(getEnvVar("dbport"))
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
