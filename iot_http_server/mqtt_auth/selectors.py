@@ -5,6 +5,9 @@ from typing import Dict
 from mqtt_auth.models import Device, MQTTUser
 from django.contrib.auth.models import User
 
+_PUBLISH_ACTION_ID: int = 2
+_SUBSCRIBE_ACTION_ID: int = 4
+
 
 def auth_user(body: str) -> bool:
     body_json: Dict[str, str] = json.loads(body)
@@ -27,38 +30,36 @@ def auth_superuser(body: str) -> bool:
         return False
 
 
+def _client_id_matches_username(client_id: str, username: str) -> bool:
+    try:
+        Device.objects.get(mqtt_client_id=client_id,
+                           user=MQTTUser.objects.get(mqtt_username=username).user)
+    except Exception as e:
+        return False
+    else:
+        return True
+
+
+def _topic_is_valid(topic: str, client_id: str, action_id: int) -> bool:
+    if (action_id == _PUBLISH_ACTION_ID
+            and topic.split("/")[1] == "ingest"
+            and topic.split("/")[2] == client_id):
+        return True
+    elif (action_id == _SUBSCRIBE_ACTION_ID
+          and topic.split("/")[1] == client_id):
+        return True
+    else:
+        return False
+
+
 def auth_topic(body: str) -> bool:
     body_json: Dict[str, str] = json.loads(body)
     username: str = body_json["username"]
     client_id: str = body_json["clientid"]
     topic: str = body_json["topic"]
-    acc: int = int(body_json["acc"])
-    try:
-        if acc == 2:
-            """
-            Client is wanting to publish to the mqtt server.
-            The topic format must be /ingest/clientid/channel.
-            In addition to that, the clientid must match the username.
-            If it is not, return false.
-            """
-            if topic.split("/")[1] != "ingest":
-                return False
-            if topic.split("/")[2] != client_id:
-                return False
-            Device.objects.get(mqtt_client_id=client_id, user=MQTTUser.objects.get(mqtt_username=username).user)
-        elif acc == 4:
-            """
-            Client is wanting to subscribe to a topic and receive
-            the data from the mqtt server.
-            The topic format must be /clientid/channel.
-            In addition to that, the clientid must match the username.
-            If it is not, return false. 
-            """
-            if topic.split("/")[1] != client_id:
-                return False
-            Device.objects.get(mqtt_client_id=client_id, user=MQTTUser.objects.get(mqtt_username=username).user)
-        else:
-            return False
+    action_id: int = int(body_json["acc"])
+    if (_client_id_matches_username(client_id, username)
+            and _topic_is_valid(topic, client_id, action_id)):
         return True
-    except Exception as e:
+    else:
         return False

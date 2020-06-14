@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+	<title>Mutech Dashboard</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+    <link rel="shortcut icon" type="image/png" href="{% static 'dashboard/images/favicon.png' %}"/>
+    <link rel="stylesheet" href="{% static 'dashboard/styles/base.css' %}">
+
+    <!-- Custom fonts for the template-->
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+
+    <!-- Custom styles for the template-->
+    <link rel="stylesheet" href="{% static 'dashboard/styles/sb-admin-2.css' %}">
+    {% block head %}
+    {% endblock %}
+</head>
+<body class="bg-gradient-primary">
+    {% block header %}
+    {% endblock %}
+
+	{% block content %}
+    <div>Missing Content</div>
+    {% endblock %}
+
+    {% block footer %}
+    {% endblock %}
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'dashboard/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'dashboard/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'dashboard/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'dashboard/scripts/sb-admin-2.js' %}"></script>
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>
