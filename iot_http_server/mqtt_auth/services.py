@@ -1,11 +1,11 @@
 # Contains mypy-typed functions which write to the ORM.
 # Watch this https://www.youtube.com/watch?v=yG3ZdxBb1oo to understand.
 from mqtt_auth.models import Device, MQTTUser
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 def _setup_test_user() -> None:
-    user = User(username="test_normal_user")
+    user = get_user_model()(username="test_normal_user")
     user.save()
     mqtt_user = MQTTUser(user=user,
                          mqtt_username="49992d21-6cd2-4441-a94f-48df57215957",
@@ -17,7 +17,7 @@ def _setup_test_user() -> None:
 
 
 def _setup_test_superuser() -> None:
-    superuser = User(username="test_superuser")
+    superuser = get_user_model()(username="test_superuser")
     superuser.save()
 
     mqtt_superuser = MQTTUser(user=superuser,
@@ -33,5 +33,5 @@ def setup_test_data() -> None:
 
 
 def teardown_test_data() -> None:
-    User.objects.filter(username="test_normal_user").delete()
-    User.objects.filter(username="test_superuser").delete()
+    get_user_model().objects.filter(username="test_normal_user").delete()
+    get_user_model().objects.filter(username="test_superuser").delete()

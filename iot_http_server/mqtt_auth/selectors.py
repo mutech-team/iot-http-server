@@ -3,7 +3,6 @@
 import json
 from typing import Dict
 from mqtt_auth.models import Device, MQTTUser
-from django.contrib.auth.models import User
 
 _PUBLISH_ACTION_ID: int = 2
 _SUBSCRIBE_ACTION_ID: int = 4

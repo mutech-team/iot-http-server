@@ -9,6 +9,7 @@ verify_ssl = true
 django = "*"
 mypy = "*"
 psycopg2 = "*"
+django-user-unique-email = "*"
 
 [requires]
 python_version = "3.6"
