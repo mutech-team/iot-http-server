@@ -30,6 +30,13 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ["email_host"]
+EMAIL_USE_TLS = True
+EMAIL_PORT = int(os.environ["email_port"]) # default for google smtp 587
+EMAIL_HOST_USER = os.environ["email_address"]
+EMAIL_HOST_PASSWORD = os.environ["email_apikey"]
+
 INSTALLED_APPS = [
     'django.contrib.admin', 'django.contrib.auth',
     'django.contrib.contenttypes', 'django.contrib.sessions',
