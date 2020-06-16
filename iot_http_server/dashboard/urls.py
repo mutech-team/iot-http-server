@@ -16,10 +16,10 @@ urlpatterns = [
     path('password_reset/done',
          auth_views.PasswordResetDoneView.as_view(template_name="dashboard/password_reset_done.html"),
          name='password_reset_done'),
-    path('password_reset/<uidb64>/<token>',
+    path('reset/<uidb64>/<token>',
          auth_views.PasswordResetConfirmView.as_view(template_name="dashboard/reset_password.html"),
          name='password_reset_confirm'),
-    path('password_reset/done',
+    path('reset/done',
          auth_views.PasswordResetCompleteView.as_view(template_name="dashboard/password_reset_successful.html"),
          name='password_reset_complete'),
     # TODO : Other urls are for changing user password manually, if user know old pass, enable later
