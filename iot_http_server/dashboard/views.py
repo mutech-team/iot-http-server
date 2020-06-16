@@ -32,3 +32,5 @@ def register_view(request: HttpRequest) -> HttpResponse:
 def logout_view(request: HttpRequest) -> HttpResponseRedirect:
     logout(request)
     return HttpResponseRedirect('/')
+
+#def forgot_password_view(request: HttpRequest) -> HttpResponse:
