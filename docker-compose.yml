@@ -12,6 +12,9 @@ services:
       - dbname=$dbname
       - secretkey=$secretkey
       - debug=$debug
+      - email_port=$email_port
+      - email_address=$email_address
+      - email_apikey=$email_apikey
       
     container_name: "iot-http-server"
     ports:
