@@ -135,3 +135,4 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 AUTH_USER_MODEL = 'user_unique_email.User'
+LOGIN_URL = '/login'
