@@ -1,7 +1,6 @@
 from django.db import models
-from mqtt_auth.models import  Device
+from mqtt_auth.models import Device
 
-# Create your models here.
 
 class Data(models.Model):
     device: models.ForeignKey = models.ForeignKey(Device, on_delete=models.CASCADE)

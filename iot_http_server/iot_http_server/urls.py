@@ -19,5 +19,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('mqtt_auth/', include('mqtt_auth.urls')),
+    path("mqtt_data/", include('data.urls')),
     path('', include('dashboard.urls')),
 ]
