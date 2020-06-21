@@ -1,5 +1,6 @@
 from django.db import models
-from mqtt_auth.models import  Device
+from mqtt_auth.models import Device
+
 
 # Create your models here.
 
