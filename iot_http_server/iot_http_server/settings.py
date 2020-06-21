@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages', 'django.contrib.staticfiles',
     'user_unique_email',
     'mqtt_auth',
-    'dashboard'
+    'dashboard',
+    'data'
 ]
 
 MIDDLEWARE = [
