@@ -15,7 +15,7 @@ def obtain_data(request: HttpRequest, deviceid: uuid, datatype: str) -> JsonResp
     data: str = serializers.serialize("json", selectors.obtain_data(deviceid, datatype), fields=('value', 'timestamp'))
     # The Django REST framework then takes care of producing JSON for you
     # https://stackoverflow.com/questions/28249491/why-does-json-returned-from-the-django-rest-framework-have-forward-slashes-in-th
-    return HttpResponse(data)
+    return HttpResponse(data, content_type='application/json')
 
 
 def obtain_data_latest(request: HttpRequest, deviceid: uuid, datatype: str) -> JsonResponse:
@@ -24,4 +24,4 @@ def obtain_data_latest(request: HttpRequest, deviceid: uuid, datatype: str) -> J
         return HttpResponse('Unauthorized to view this property', status=401)
     data: str = serializers.serialize("json", [selectors.obtain_data_latest(deviceid, datatype), ],
                                       fields=('value', 'timestamp'))
-    return HttpResponse(data)
+    return HttpResponse(data, content_type='application/json')

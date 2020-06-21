@@ -6,7 +6,6 @@ from typing import Dict
 import user_unique_email
 from django.contrib.auth import get_user_model
 from django.db.models import QuerySet
-import mqtt_auth
 from mqtt_auth.models import Device, MQTTUser
 
 _PUBLISH_ACTION_ID: int = 2
@@ -20,7 +19,7 @@ def auth_user(body: str) -> bool:
     try:
         MQTTUser.objects.get(mqtt_username=username, mqtt_password=password)
         return True
-    except mqtt_auth.models.MQTTUser.DoesNotExist as e:
+    except MQTTUser.DoesNotExist:
         return False
 
 
@@ -30,7 +29,7 @@ def auth_superuser(body: str) -> bool:
     try:
         MQTTUser.objects.get(mqtt_username=username, is_mqtt_superuser=True)
         return True
-    except mqtt_auth.models.MQTTUser.DoesNotExist as e:
+    except MQTTUser.DoesNotExist:
         return False
 
 
@@ -42,7 +41,7 @@ def userid_matches_deviceid(userid: int, deviceid: uuid) -> bool:
         return False
     except user_unique_email.models.User.DoesNotExist:
         return False
-    except mqtt_auth.models.Device.DoesNotExist:
+    except Device.DoesNotExist:
         return False
 
 
@@ -52,7 +51,7 @@ def _client_id_matches_username(client_id: uuid, username: str) -> bool:
                            user=MQTTUser.objects.get(mqtt_username=username).user)
     except user_unique_email.models.User.DoesNotExist:
         return False
-    except mqtt_auth.models.Device.DoesNotExist:
+    except Device.DoesNotExist:
         return False
     else:
         return True
