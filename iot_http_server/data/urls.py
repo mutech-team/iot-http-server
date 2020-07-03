@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path("obtain_data/<uuid:deviceid>/<str:datatype>/latest", views.obtain_data_latest),
     path("obtain_data/<uuid:deviceid>/<str:datatype>", views.obtain_data),
+    path("obtain_data/<uuid:deviceid>/", views.obtain_data_all),
     path("save_state/", views.save_state),
-
 
 ]
