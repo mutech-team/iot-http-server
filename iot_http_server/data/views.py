@@ -8,8 +8,21 @@ import mqtt_auth.selectors as auth_selectors
 import json
 from typing import Dict
 
+_DEBUG = False
 
-@login_required(login_url='/login')
+
+def conditional_decorator(dec, condition):
+    def decorator(func):
+        if not condition:
+            # Return the function unchanged, not decorated.
+            return func
+        return dec(func)
+
+    return decorator
+
+
+# @login_required(login_url='/login')
+@conditional_decorator(login_required(login_url='/login'), not _DEBUG)
 def obtain_data(request: HttpRequest, deviceid: uuid, datatype: str) -> HttpResponse:
     current_user_id: int = request.user.id
     if not auth_selectors.userid_matches_deviceid(current_user_id, deviceid):
@@ -18,7 +31,8 @@ def obtain_data(request: HttpRequest, deviceid: uuid, datatype: str) -> HttpResp
     return HttpResponse(data, content_type='application/json')
 
 
-@login_required(login_url='/login')
+# @login_required(login_url='/login')
+@conditional_decorator(login_required(login_url='/login'), not _DEBUG)
 def obtain_data_latest(request: HttpRequest, deviceid: uuid, datatype: str) -> HttpResponse:
     current_user_id: int = request.user.id
     if not auth_selectors.userid_matches_deviceid(current_user_id, deviceid):
@@ -28,11 +42,15 @@ def obtain_data_latest(request: HttpRequest, deviceid: uuid, datatype: str) -> H
     return HttpResponse(data, content_type='application/json')
 
 
-@login_required(login_url='/login')
+# @login_required(login_url='/login')
+@conditional_decorator(login_required(login_url='/login'), not _DEBUG)
 def save_state(request: HttpRequest):
     body_json: Dict[str, str] = json.loads(request.body)
     deviceid: str = body_json["deviceid"]
-    current_user_id: int = request.user.id
+    if _DEBUG:
+        current_user_id = body_json["userid"]
+    else:
+        current_user_id: int = request.user.id
     if not auth_selectors.userid_matches_deviceid(current_user_id, deviceid):
         return HttpResponse('Unauthorized to view this property', status=401)
     statetype: str = body_json["statetype"]
