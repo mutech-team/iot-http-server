@@ -31,8 +31,8 @@ class Data(models.Model):
 
 class State(models.Model):
     device: models.ForeignKey = models.ForeignKey(Device, on_delete=models.CASCADE)
-    type: models.CharField = models.CharField(max_length=50)
     timestamp: models.DateTimeField = models.DateTimeField(auto_now_add=True)
+    type: models.CharField = models.CharField(max_length=50)
     value: models.TextField = models.TextField()
     serialized: str = models.TextField(default=None, null=True)
 
