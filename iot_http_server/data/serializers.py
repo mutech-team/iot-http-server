@@ -1,42 +1,26 @@
+from typing import Union
+
 from django.db.models import QuerySet
 from data.models import Data, State
 
 
-def serialize_data_queryset(data: QuerySet(Data)) -> str:
+def serialize(data: Union[QuerySet, Data, State]) -> str:
     if not data:
         return "[]"
-    out: str = "["
-    for i in data:
-        out += i.serialize_to_json()
-        out += ","
-    out += "]"
-    return out
-
-
-def serialize_data_single(data: Data) -> str:
-    if not data:
+    try:
+        if (type(data)) == QuerySet or (type(data)) == list:
+            out: str = "["
+            for i in data:
+                out += i.serialize_to_json()
+                out += ","
+            out += "]"
+            return out
+        else:
+            out: str = "["
+            out += data.serialize_to_json()
+            out += "]"
+            return out
+    except AttributeError:
+        print("Model that you want to serialize must have serialize_to_json() "
+              "function, returning JSON trough json.dumps")
         return "[]"
-    out: str = "["
-    out += data.serialize_to_json()
-    out += "]"
-    return out
-
-
-def serialize_state_queryset(data: QuerySet(State)) -> str:
-    if not data:
-        return []
-    out: str = "["
-    for i in data:
-        out += i.serialize_to_json()
-        out += ","
-    out += "]"
-    return out
-
-
-def serialize_state_single(data: State) -> str:
-    if not data:
-        return "[]"
-    out: str = "["
-    out += data.serialize_to_json()
-    out += "]"
-    return out

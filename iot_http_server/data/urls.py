@@ -6,5 +6,6 @@ urlpatterns = [
     path("obtain_data/<uuid:deviceid>/<str:datatype>", views.obtain_data),
     path("obtain_data/<uuid:deviceid>/", views.obtain_data_all),
     path("save_state/", views.save_state),
+    path("obtain_states/<uuid:deviceid>/", views.obtain_state_all),
 
 ]

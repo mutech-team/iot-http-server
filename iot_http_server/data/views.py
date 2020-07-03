@@ -30,7 +30,7 @@ def obtain_data(request: HttpRequest, deviceid: uuid, datatype: str) -> HttpResp
             current_user_id = _DEBUG_USER_ID
     if not auth_selectors.userid_matches_deviceid(current_user_id, deviceid):
         return HttpResponse('Unauthorized to view this property', status=401)
-    data: str = serializers.serialize_data_queryset(selectors.obtain_data(deviceid, datatype))
+    data: str = serializers.serialize(selectors.obtain_data(deviceid, datatype))
     return HttpResponse(data, content_type='application/json')
 
 
@@ -43,7 +43,7 @@ def obtain_data_latest(request: HttpRequest, deviceid: uuid, datatype: str) -> H
             current_user_id = _DEBUG_USER_ID
     if not auth_selectors.userid_matches_deviceid(current_user_id, deviceid):
         return HttpResponse('Unauthorized to view this property', status=401)
-    data: str = serializers.serialize_data_single(selectors.obtain_data_latest(deviceid, datatype))
+    data: str = serializers.serialize(selectors.obtain_data_latest(deviceid, datatype))
     return HttpResponse(data, content_type='application/json')
 
 
@@ -56,7 +56,20 @@ def obtain_data_all(request: HttpRequest, deviceid: uuid) -> HttpResponse:
             current_user_id = _DEBUG_USER_ID
     if not auth_selectors.userid_matches_deviceid(current_user_id, deviceid):
         return HttpResponse('Unauthorized to view this property', status=401)
-    data: str = serializers.serialize_data_queryset(selectors.obtain_data_all(deviceid))
+    data: str = serializers.serialize(selectors.obtain_data_all(deviceid))
+    return HttpResponse(data, content_type='application/json')
+
+
+# @login_required(login_url='/login')
+@conditional_decorator(login_required(login_url='/login'), not _DEBUG)
+def obtain_state_all(request: HttpRequest, deviceid: uuid) -> HttpResponse:
+    current_user_id: int = request.user.id
+    if _DEBUG:
+        if current_user_id is None:
+            current_user_id = _DEBUG_USER_ID
+    if not auth_selectors.userid_matches_deviceid(current_user_id, deviceid):
+        return HttpResponse('Unauthorized to view this property', status=401)
+    data: str = serializers.serialize(selectors.obtain_state_all(deviceid))
     return HttpResponse(data, content_type='application/json')
 
 
