@@ -17,7 +17,7 @@ def _is_docker():
     )
 
 
-_host = "mutech.ivica.codes"
+_host = "10.8.0.1"
 _port = 5056
 
 if _is_docker():
@@ -27,10 +27,15 @@ _socket = s.socket(s.AF_INET, s.SOCK_STREAM)
 _socket.connect((_host, _port))
 
 
-def send(mqtt_topic: str, mqtt_payload: str) -> None:
+def _send(mqtt_topic: str, mqtt_payload: str) -> None:
     if not _contains_whitespace(mqtt_topic):
         message: str = mqtt_topic + _MQTT_STRING_SEPARATOR + mqtt_payload + _MQTT_STRING_SEPARATOR + "\n"
         try:
             _socket.send(message.encode("utf-8"))
         except s.error:
             raise BrokenPipeError
+
+
+def publish(deviceid: str, state: str, message: str) -> None:
+    topic = "/" + deviceid + "/" + state
+    _send(topic, message)
