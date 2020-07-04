@@ -17,7 +17,7 @@ def _is_docker():
     )
 
 
-_host = "10.8.0.1"
+_host = "mutech.ivica.codes"
 _port = 5056
 
 if _is_docker():
