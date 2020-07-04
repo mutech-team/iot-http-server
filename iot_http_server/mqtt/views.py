@@ -24,28 +24,28 @@ def conditional_decorator(dec, condition):
 
 # @login_required(login_url='/login')
 @conditional_decorator(login_required(login_url='/login'), not _DEBUG)
-def obtain_data(request: HttpRequest, deviceid: uuid, data: str) -> HttpResponse:
+def obtain_data(request: HttpRequest, deviceid: uuid, datatype: str) -> HttpResponse:
     current_user_id: int = request.user.id
     if _DEBUG:
         if current_user_id is None:
             current_user_id = _DEBUG_USER_ID
     if not auth_selectors.userid_matches_deviceid(current_user_id, deviceid):
         return HttpResponse('Unauthorized to view this property', status=401)
-    data: str = serializers.serialize(selectors.obtain_data(deviceid, data))
-    return HttpResponse(data, content_type='application/json')
+    datatype: str = serializers.serialize(selectors.obtain_data(deviceid, datatype))
+    return HttpResponse(datatype, content_type='application/json')
 
 
 # @login_required(login_url='/login')
 @conditional_decorator(login_required(login_url='/login'), not _DEBUG)
-def obtain_data_latest(request: HttpRequest, deviceid: uuid, data: str) -> HttpResponse:
+def obtain_data_latest(request: HttpRequest, deviceid: uuid, datatype: str) -> HttpResponse:
     current_user_id: int = request.user.id
     if _DEBUG:
         if current_user_id is None:
             current_user_id = _DEBUG_USER_ID
     if not auth_selectors.userid_matches_deviceid(current_user_id, deviceid):
         return HttpResponse('Unauthorized to view this property', status=401)
-    data: str = serializers.serialize(selectors.obtain_data_latest(deviceid, data))
-    return HttpResponse(data, content_type='application/json')
+    datatype: str = serializers.serialize(selectors.obtain_data_latest(deviceid, datatype))
+    return HttpResponse(datatype, content_type='application/json')
 
 
 # @login_required(login_url='/login')
@@ -63,14 +63,14 @@ def obtain_data_all(request: HttpRequest, deviceid: uuid) -> HttpResponse:
 
 # @login_required(login_url='/login')
 @conditional_decorator(login_required(login_url='/login'), not _DEBUG)
-def obtain_state(request: HttpRequest, deviceid: uuid, state: str) -> HttpResponse:
+def obtain_state(request: HttpRequest, deviceid: uuid, statetype: str) -> HttpResponse:
     current_user_id: int = request.user.id
     if _DEBUG:
         if current_user_id is None:
             current_user_id = _DEBUG_USER_ID
     if not auth_selectors.userid_matches_deviceid(current_user_id, deviceid):
         return HttpResponse('Unauthorized to view this property', status=401)
-    data: str = serializers.serialize(selectors.obtain_state(deviceid, state))
+    data: str = serializers.serialize(selectors.obtain_state(deviceid, statetype))
     return HttpResponse(data, content_type='application/json')
 
 
