@@ -10,7 +10,7 @@ def _contains_whitespace(param: str) -> bool:
     return True in [c in param for c in string.whitespace]
 
 
-def _is_docker():
+def _is_docker() -> bool:
     path = '/proc/self/cgroup'
     return (
         os.path.exists('/.dockerenv') or
