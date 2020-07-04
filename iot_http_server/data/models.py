@@ -9,7 +9,7 @@ class Data(models.Model):
     timestamp: models.DateTimeField = models.DateTimeField(auto_now_add=True)
     type: models.CharField = models.CharField(max_length=50)
     value: models.TextField = models.TextField()
-    serialized: str = models.TextField(default=None, null=True)
+    serialized: models.TextField = models.TextField(default=None, null=True)
 
     def __str__(self):
         return str(self.device.mqtt_client_id)
@@ -18,11 +18,11 @@ class Data(models.Model):
         if self.serialized is None:
             data: Dict[str, str] = {"deviceid": str(self.device.mqtt_client_id), "timestamp": str(self.timestamp),
                                     "type": str(self.type), "value": str(self.value)}
-            self.serialized = json.dumps(data)
+            self.serialized = models.TextField(json.dumps(data))
             self.save()
-            return self.serialized
+            return str(self.serialized)
         else:
-            return self.serialized
+            return str(self.serialized)
 
     class Meta:
         db_table = 'Data'
@@ -34,7 +34,7 @@ class State(models.Model):
     timestamp: models.DateTimeField = models.DateTimeField(auto_now_add=True)
     type: models.CharField = models.CharField(max_length=50)
     value: models.TextField = models.TextField()
-    serialized: str = models.TextField(default=None, null=True)
+    serialized: models.TextField = models.TextField(default=None, null=True)
 
     def serialize_to_json(self) -> str:
         data: Dict[str, str] = {"deviceid": str(self.device.mqtt_client_id), "timestamp": str(self.timestamp),

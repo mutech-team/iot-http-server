@@ -13,6 +13,36 @@ body {
     color: var(--main-text-color);
 }
 
+*:fullscreen, *:-webkit-full-screen, *:-moz-full-screen {
+    background-color: var(--main-bg-color);
+}
+
+/* Mutech Style Classes */
+.mt-bg-color {
+    background-color: var(--main-bg-color);
+}
+
+.mt-element-color {
+    background-color: var(--main-element-color);
+}
+
+.mt-text-color {
+    color: var(--main-text-color);
+}
+
+.mt-anchor-color {
+    color: var(--main-anchor-color);
+}
+
+.mt-anchor-hover-color:hover {
+    color: var(--hover-anchor-color);
+}
+
+.mt-button-color {
+    background-color: var(--main-button-color);
+    border-color: var(--main-button-color);
+}
+
 .card {
     background-color: var(--main-element-color);
 }
@@ -28,6 +58,12 @@ body {
     color: var(--main-text-color);
 }
 
+.list-group-item-action:focus,
+.list-group-item-action:hover {
+    color: var(--main-text-color);
+    background-color: var(--main-button-color);
+}
+
 .btn-primary {
     background-color: var(--main-button-color);
     border-color: var(--main-button-color);
@@ -39,7 +75,7 @@ body {
 }
 
 a {
-    color: var(--main-anchor-color);
+    color: var(--main-text-color);
 }
 
 a:hover {
