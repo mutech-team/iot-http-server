@@ -1,6 +1,6 @@
 import uuid
 from .models import Data, State
-import selectors
+import mqtt.selectors as selectors
 import modules.mqtt_publisher as mqtt_publisher
 
 

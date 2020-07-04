@@ -34,6 +34,7 @@ class Device(models.Model):
 
 class Data(models.Model):
     device: models.ForeignKey = models.ForeignKey(Device, on_delete=models.CASCADE)
+    device: models.ForeignKey = models.ForeignKey(Device, on_delete=models.CASCADE)
     timestamp: models.DateTimeField = models.DateTimeField(auto_now_add=True)
     type: models.CharField = models.CharField(max_length=50)
     value: models.TextField = models.TextField()
@@ -46,7 +47,7 @@ class Data(models.Model):
         if self.serialized is None:
             data: Dict[str, str] = {"deviceid": str(self.device.mqtt_client_id), "timestamp": str(self.timestamp),
                                     "type": str(self.type), "value": str(self.value)}
-            self.serialized = models.TextField(json.dumps(data))
+            self.serialized = json.dumps(data)
             self.save()
             return str(self.serialized)
         else:
