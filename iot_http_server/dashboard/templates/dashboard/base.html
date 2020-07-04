@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html>
 {% load static %}
+
 <head>
 	<title>Mutech Dashboard</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
-    <link rel="shortcut icon" type="image/png" href="{% static 'dashboard/images/favicon.png' %}"/>
-    <link rel="stylesheet" href="{% static 'dashboard/styles/base.css' %}">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+	<link rel="shortcut icon" type="image/png" href="{% static 'dashboard/images/favicon.png' %}" />
 
-    <!-- Custom fonts for the template-->
-    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/fontawesome-free/css/all.min.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+	<!-- Bootstrap 4.5 CSS-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <!-- Custom styles for the template-->
-    <link rel="stylesheet" href="{% static 'dashboard/styles/sb-admin-2.css' %}">
-    {% block head %}
-    {% endblock %}
+	<!-- Font Awesome 5.12 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js" integrity="sha256-+Q/z/qVOexByW1Wpv81lTLvntnZQVYppIL1lBdhtIq0=" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="{% static 'dashboard/styles/base.css' %}">
+	{% block head %}
+	{% endblock %}
 </head>
-<body class="bg-gradient-primary">
-    {% block header %}
-    {% endblock %}
+
+<body>
+	{% block header %}
+	{% endblock %}
 
 	{% block content %}
-    <div>Missing Content</div>
-    {% endblock %}
+	<div>Missing Content</div>
+	{% endblock %}
 
-    {% block footer %}
-    {% endblock %}
+	{% block footer %}
+	{% endblock %}
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{% static 'dashboard/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'dashboard/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+	<!-- Bootstrap Dependencies (jQuery, Popper.js) -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="{% static 'dashboard/jquery-easing/jquery.easing.min.js' %}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{% static 'dashboard/scripts/sb-admin-2.js' %}"></script>
-    {% block scripts %}
-    {% endblock %}
+	<!-- Bootstrap 4.5 JS-->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	{% block scripts %}
+	{% endblock %}
 </body>
+
 </html>

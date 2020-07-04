@@ -1,0 +1,83 @@
+:root {
+    --main-bg-color: #262c49;
+    --main-element-color: #1e1e2f;
+    --main-text-color: #c2c6dc;
+    --main-button-color: #4E73DF;
+    --hover-button-color: #3d65db;
+    --main-anchor-color: #4E73DF;
+    --hover-anchor-color: #3d65db;
+}
+
+body {
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+}
+
+*:fullscreen, *:-webkit-full-screen, *:-moz-full-screen {
+    background-color: var(--main-bg-color);
+}
+
+/* Mutech Style Classes */
+.mt-bg-color {
+    background-color: var(--main-bg-color);
+}
+
+.mt-element-color {
+    background-color: var(--main-element-color);
+}
+
+.mt-text-color {
+    color: var(--main-text-color);
+}
+
+.mt-anchor-color {
+    color: var(--main-anchor-color);
+}
+
+.mt-anchor-hover-color:hover {
+    color: var(--hover-anchor-color);
+}
+
+.mt-button-color {
+    background-color: var(--main-button-color);
+    border-color: var(--main-button-color);
+}
+
+.card {
+    background-color: var(--main-element-color);
+}
+
+.form-control {
+    background-color: transparent;
+    border: 1px solid #4d5a66;
+    color: var(--main-text-color);
+}
+
+.form-control:focus {
+    background-color: transparent;
+    color: var(--main-text-color);
+}
+
+.list-group-item-action:focus,
+.list-group-item-action:hover {
+    color: var(--main-text-color);
+    background-color: var(--main-button-color);
+}
+
+.btn-primary {
+    background-color: var(--main-button-color);
+    border-color: var(--main-button-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--hover-button-color);
+    border-color: var(--hover-button-color);
+}
+
+a {
+    color: var(--main-text-color);
+}
+
+a:hover {
+    color: var(--hover-anchor-color);
+}
