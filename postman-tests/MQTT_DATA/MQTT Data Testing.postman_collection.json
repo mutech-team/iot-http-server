@@ -11,12 +11,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{domain}}/mqtt_data/obtain_data/{{deviceid}}/lamp",
+					"raw": "{{domain}}/mqtt/obtain_data/{{deviceid}}/lamp",
 					"host": [
 						"{{domain}}"
 					],
 					"path": [
-						"mqtt_data",
+						"mqtt",
 						"obtain_data",
 						"{{deviceid}}",
 						"lamp"
@@ -31,15 +31,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{domain}}/mqtt_data/obtain_data/{{deviceid}}/lamp/latest",
+					"raw": "{{domain}}/mqtt/obtain_data/{{deviceid}}/lamp2/latest",
 					"host": [
 						"{{domain}}"
 					],
 					"path": [
-						"mqtt_data",
+						"mqtt",
 						"obtain_data",
 						"{{deviceid}}",
-						"lamp",
+						"lamp2",
 						"latest"
 					]
 				}
@@ -52,12 +52,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{domain}}/mqtt_data/obtain_data/{{deviceid}}",
+					"raw": "{{domain}}/mqtt/obtain_data/{{deviceid}}",
 					"host": [
 						"{{domain}}"
 					],
 					"path": [
-						"mqtt_data",
+						"mqtt",
 						"obtain_data",
 						"{{deviceid}}"
 					]
@@ -72,7 +72,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"deviceid\": \"{{deviceid}}\",\n    \"state\": \"heater12\",\n    \"value\": \"ninja23\"\n}",
+					"raw": "{\n    \"deviceid\": \"{{deviceid}}\",\n    \"state\": \"monito221r2\",\n    \"value\": \"21\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -80,12 +80,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{domain}}/mqtt_data/save_state/",
+					"raw": "{{domain}}/mqtt/save_state/",
 					"host": [
 						"{{domain}}"
 					],
 					"path": [
-						"mqtt_data",
+						"mqtt",
 						"save_state",
 						""
 					]
@@ -99,15 +99,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{domain}}/mqtt_data/obtain_state/{{deviceid}}/heater",
+					"raw": "{{domain}}/mqtt/obtain_state/{{deviceid}}/monitor2",
 					"host": [
 						"{{domain}}"
 					],
 					"path": [
-						"mqtt_data",
+						"mqtt",
 						"obtain_state",
 						"{{deviceid}}",
-						"heater"
+						"monitor2"
 					]
 				}
 			},
@@ -119,12 +119,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{domain}}/mqtt_data/obtain_states/{{deviceid}}",
+					"raw": "{{domain}}/mqtt/obtain_states/{{deviceid}}",
 					"host": [
 						"{{domain}}"
 					],
 					"path": [
-						"mqtt_data",
+						"mqtt",
 						"obtain_states",
 						"{{deviceid}}"
 					]
