@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 
 
 def _setup_test_user() -> None:
-    user = get_user_model()(username="test_normal_user")
+    user = get_user_model()(username="test_normal_user", email="test_user@mail.com")
     user.save()
     mqtt_user = MQTTUser(user=user,
                          mqtt_username="49992d21-6cd2-4441-a94f-48df57215957",
@@ -17,7 +17,7 @@ def _setup_test_user() -> None:
 
 
 def _setup_test_superuser() -> None:
-    superuser = get_user_model()(username="test_superuser")
+    superuser = get_user_model()(username="test_superuser", email="test_superuser@mail.com")
     superuser.save()
 
     mqtt_superuser = MQTTUser(user=superuser,
