@@ -17,7 +17,7 @@ def login_view(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         if authenticate_user(request):
             return HttpResponseRedirect('/')
-    return render(request, 'dashboard/login.html', {'form': form})
+    return render(request, 'dashboard/accounts/login.html', {'form': form})
 
 
 def register_view(request: HttpRequest) -> HttpResponse:
@@ -25,10 +25,12 @@ def register_view(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         if register_user(request):
             return HttpResponseRedirect('/')
-    return render(request, 'dashboard/register.html', {'form': form})
+    return render(request, 'dashboard/accounts/register.html', {'form': form})
 
 
 @login_required(login_url='/login')
 def logout_view(request: HttpRequest) -> HttpResponseRedirect:
     logout(request)
     return HttpResponseRedirect('/')
+
+#def forgot_password_view(request: HttpRequest) -> HttpResponse:
