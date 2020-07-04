@@ -1,7 +1,6 @@
 from typing import Union
-
 from django.db.models import QuerySet
-from data.models import Data, State
+from mqtt.models import Data, State
 
 
 def serialize(data: Union[QuerySet, Data, State]) -> str:
@@ -16,7 +15,7 @@ def serialize(data: Union[QuerySet, Data, State]) -> str:
             out += "]"
             return out
         else:
-            out: str = "["
+            out: str = "["  # type: ignore
             out += data.serialize_to_json()
             out += "]"
             return out

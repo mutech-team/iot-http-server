@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path("obtain_data/<uuid:deviceid>/<str:data>/latest", views.obtain_data_latest),
     path("obtain_data/<uuid:deviceid>/<str:data>", views.obtain_data),

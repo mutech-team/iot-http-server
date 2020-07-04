@@ -1,9 +1,7 @@
 import uuid
 from typing import Union
-
 from django.db.models import QuerySet
-from mqtt_auth.models import Device
-from .models import Data, State
+from .models import Data, State, Device
 
 
 def obtain_data(deviceid: uuid.UUID, data: str) -> Union[None, QuerySet]:

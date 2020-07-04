@@ -1,6 +1,6 @@
 # Contains mypy-typed functions which write to the ORM.
 # Watch this https://www.youtube.com/watch?v=yG3ZdxBb1oo to understand.
-from mqtt_auth.models import Device, MQTTUser
+from mqtt.models import Device, MQTTUser
 from django.contrib.auth import get_user_model
 
 
