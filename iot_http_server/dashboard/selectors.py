@@ -3,15 +3,14 @@
 from django.http import QueryDict
 from django.contrib.auth import authenticate, login
 from dashboard.forms import LoginForm
-from django.http import HttpRequest
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 
 
-def authenticate_user(request: HttpRequest) -> bool:
-    form: LoginForm = LoginForm(request.POST)
+def authenticate_user(request):
+    form = LoginForm(request.POST)
     if form.is_valid():
-        email: str = form.cleaned_data['email']
+        email = form.cleaned_data['email']
         try:
             username = get_user_model().objects.get(email=email).username
         except ObjectDoesNotExist:
