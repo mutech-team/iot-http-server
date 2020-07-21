@@ -6,11 +6,11 @@ import socket as s
 _MQTT_STRING_SEPARATOR = "Æ¸·¬"
 
 
-def _contains_whitespace(param: str) -> bool:
+def _contains_whitespace(param):
     return True in [c in param for c in string.whitespace]
 
 
-def _is_docker() -> bool:
+def _is_docker():
     path = '/proc/self/cgroup'
     return (
         os.path.exists('/.dockerenv') or
@@ -28,15 +28,15 @@ _socket = s.socket(s.AF_INET, s.SOCK_STREAM)
 _socket.connect((_host, _port))
 
 
-def _send(mqtt_topic: str, mqtt_payload: str) -> None:
+def _send(mqtt_topic, mqtt_payload):
     if not _contains_whitespace(mqtt_topic):
-        message: str = mqtt_topic + _MQTT_STRING_SEPARATOR + mqtt_payload + _MQTT_STRING_SEPARATOR + "\n"
+        message = mqtt_topic + _MQTT_STRING_SEPARATOR + mqtt_payload + _MQTT_STRING_SEPARATOR + "\n"
         try:
             _socket.send(message.encode("utf-8"))
         except s.error:
             raise BrokenPipeError
 
 
-def publish(deviceid: str, state: str, message: str) -> None:
+def publish(deviceid, state, message):
     topic = "/" + deviceid + "/" + state
     _send(topic, message)

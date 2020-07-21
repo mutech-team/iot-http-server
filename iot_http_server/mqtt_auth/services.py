@@ -4,7 +4,7 @@ from mqtt.models import Device, MQTTUser
 from django.contrib.auth import get_user_model
 
 
-def _setup_test_user() -> None:
+def _setup_test_user():
     user = get_user_model()(username="test_normal_user", email="test_user@mail.com")
     user.save()
     mqtt_user = MQTTUser(user=user,
@@ -16,7 +16,7 @@ def _setup_test_user() -> None:
     device.save()
 
 
-def _setup_test_superuser() -> None:
+def _setup_test_superuser():
     superuser = get_user_model()(username="test_superuser", email="test_superuser@mail.com")
     superuser.save()
 
@@ -27,11 +27,11 @@ def _setup_test_superuser() -> None:
     mqtt_superuser.save()
 
 
-def setup_test_data() -> None:
+def setup_test_data():
     _setup_test_user()
     _setup_test_superuser()
 
 
-def teardown_test_data() -> None:
+def teardown_test_data():
     get_user_model().objects.filter(username="test_normal_user").delete()
     get_user_model().objects.filter(username="test_superuser").delete()
