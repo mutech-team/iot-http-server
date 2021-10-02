@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+# Tell Django that we are running behind the NGINX proxy, which provides HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,37 +23,31 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
+SECRET_KEY = os.environ["secretkey"]
 
-def getEnvVar(varName: str) -> str:
-    try:
-        if (os.environ[varName]):
-            return str(os.environ[varName])
-        else:
-            return ""
-    except:
-        return ""
-
-
-SECRET_KEY = 'j0mnl0n!+#ose_+5ofi)k7493sh&o1v(k5r8@bd$xp$l(mf1f='
-
-if (getEnvVar('secretkey') != ""):
-    SECRET_KEY = os.environ['secretkey']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-if (getEnvVar('debug') != ""):
-    DEBUG = False
+DEBUG = bool(os.environ["debug"])
 
 ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ["email_host"]
+EMAIL_USE_TLS = True
+EMAIL_PORT = int(os.environ["email_port"])  # default for google smtp 587
+EMAIL_HOST_USER = os.environ["email_address"]
+EMAIL_HOST_PASSWORD = os.environ["email_apikey"]
+
 INSTALLED_APPS = [
     'django.contrib.admin', 'django.contrib.auth',
     'django.contrib.contenttypes', 'django.contrib.sessions',
     'django.contrib.messages', 'django.contrib.staticfiles',
-    'mqtt_auth'
+    'user_unique_email',
+    'mqtt_auth',
+    'dashboard',
+    'mqtt'
 ]
 
 MIDDLEWARE = [
@@ -88,20 +85,13 @@ WSGI_APPLICATION = 'iot_http_server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'api',
-        'USER': 'apiman',
-        'PASSWORD': 'apiman',
-        'HOST': 'mutech.ivica.codes',
-        'PORT': 5432,
+        'NAME': os.environ["dbname"],
+        'USER': os.environ["dbuser"],
+        'PASSWORD': os.environ["dbpass"],
+        'HOST': os.environ["dbaddr"],
+        'PORT': int(os.environ["dbport"]),
     }
 }
-
-if getEnvVar("dbaddr") != "":
-    DATABASES['default']['NAME'] = getEnvVar("dbname")
-    DATABASES['default']['USER'] = getEnvVar("dbuser")
-    DATABASES['default']['PASSWORD'] = getEnvVar("dbpass")
-    DATABASES['default']['HOST'] = getEnvVar("dbaddr")
-    DATABASES['default']['PORT'] = int(getEnvVar("dbport"))
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -145,4 +135,5 @@ STATIC_URL = '/static/'
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-AUTH_USER_MODEL = 'mqtt_auth.User'
+AUTH_USER_MODEL = 'user_unique_email.User'
+LOGIN_URL = '/login'

@@ -7,8 +7,8 @@ verify_ssl = true
 
 [packages]
 django = "*"
-mypy = "*"
 psycopg2 = "*"
+django-user-unique-email = "*"
 
 [requires]
 python_version = "3.6"
